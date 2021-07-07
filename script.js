@@ -19,7 +19,7 @@ stdin.addListener("data", (input) => {
                     }
                     console.log(stringRow);
                 }
-                console.log('resulted path: ' + startMazeJourneyToFindPath(res.endX, res.endY));
+                console.log('resulted path: ' + getResultdPath(res.endX, res.endY));
                 console.log('enter maze in JSON format:');
             });
     }
@@ -78,7 +78,7 @@ resolveMaze()
             }
             console.log(stringRow);
         }
-        console.log('resulted path: ' + startMazeJourneyToFindPath(res.endX, res.endY));
+        console.log('resulted path: ' + getResultdPath(res.endX, res.endY));
         console.log('enter maze in JSON format:');
     });
 
@@ -123,18 +123,22 @@ async function startMazeJourneyToChangeMaze(x, y, callback) {
     }
 }
 
+function getResultdPath(x, y) {
+    let path = startMazeJourneyToFindPath(x, y);
+    return '[' + path.substring(0, path.length - 2) + ']';
+}
 
 function startMazeJourneyToFindPath(x, y) {
     if (maze[y][x] === '0') {
-        return '';
+        return ' ';
     } else if (maze[y][x] === '►') {
-        return startMazeJourneyToFindPath(x - 1, y) + ', ' + maze[y][x];
+        return startMazeJourneyToFindPath(x - 1, y) + '\'right\'' + ', ';
     } else if (maze[y][x] === '▲') {
-        return startMazeJourneyToFindPath(x, y + 1) + ', ' + maze[y][x];
+        return startMazeJourneyToFindPath(x, y + 1) + '\'top\'' + ', ';
     } else if (maze[y][x] === '◄') {
-        return startMazeJourneyToFindPath(x + 1, y) + ', ' + maze[y][x];
+        return startMazeJourneyToFindPath(x + 1, y) + '\'left\'' + ', ';
     } else if (maze[y][x] === '▼') {
-        return startMazeJourneyToFindPath(x, y - 1) + ', ' + maze[y][x];
+        return startMazeJourneyToFindPath(x, y - 1) + '\'bottom\'' + ', ';
     }
 }
 
